@@ -53,9 +53,3 @@ Thumbs.db
 # =========================
 Generated/
 
-
-bin/
-obj/
-.vs/
-*.user
-*.suo
