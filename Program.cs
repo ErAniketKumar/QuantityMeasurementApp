@@ -2,4 +2,4 @@ using QMAPP.BusinessLogic;
 
 QuantityMeasurementApp quantityMeasurementApp  = new QuantityMeasurementApp();
 
-quantityMeasurementApp.TestFunQualityMeasurment();
+quantityMeasurementApp.QuantityMeasurment();
