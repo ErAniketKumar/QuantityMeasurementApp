@@ -1,1 +1,5 @@
-Console.WriteLine("Jai Mata DI!");
+using QMAPP.BusinessLogic;
+
+QuantityMeasurementApp quantityMeasurementApp  = new QuantityMeasurementApp();
+
+quantityMeasurementApp.TestFunQualityMeasurment();
