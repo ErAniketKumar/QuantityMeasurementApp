@@ -5,7 +5,7 @@ namespace QMAPP.BusinessLogic
     {
         public QuantityMeasurementApp()
         {
-            Console.WriteLine("qma initiate!");
+           
         }
 
         Feet feet1 = new Feet(10.5);
@@ -13,7 +13,7 @@ namespace QMAPP.BusinessLogic
         Feet feet3 = new Feet(11);
 
         Feet feet4 = new Feet(10.5);
-        public void TestFunQualityMeasurment()
+        public void QuantityMeasurment()
         {
             Console.WriteLine(feet1.Equals(feet4));
         }
