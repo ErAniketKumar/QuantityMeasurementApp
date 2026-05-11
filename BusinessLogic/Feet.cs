@@ -2,11 +2,11 @@
 {
     public class Feet
     {
-        internal double FeetValue { get; set; }
+        private readonly double feetValue;
 
-        public Feet(double FeetValue)
+        public Feet(double feetValue)
         {
-            this.FeetValue = FeetValue;
+            this.feetValue = feetValue;
         }
 
         public override bool Equals(object? obj)
@@ -22,7 +22,18 @@
             // type cast
             Feet other = (Feet) obj;
             // check 
-            return this.FeetValue== other.FeetValue;
+            return this.feetValue.Equals(other.feetValue);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return feetValue.GetHashCode();
+        }
+
+        public double GetFeetValue()
+        {
+            return this.feetValue;
         }
     }
 }
