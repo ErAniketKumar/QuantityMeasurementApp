@@ -93,8 +93,7 @@ namespace QMAPP.BusinessLogic
     {
         private readonly double value;
         public readonly LengthUnit unit;
-
-
+        
        public QuantityLength(double value, LengthUnit unit)
        {
             this.value = value;
