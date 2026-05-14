@@ -67,6 +67,52 @@ namespace QMAPP.BusinessLogic
         }
     }
 
+
+    public enum LengthUnit
+    {
+        INCH,
+        FEET
+    }
+
+    public static class LengthUnitExtension {
+        public static double ConversionFector(LengthUnit unit)
+        {
+            switch (unit)
+            {
+                case LengthUnit.FEET:
+                    return 12.0;
+                case LengthUnit.INCH:
+                    return 1.0;
+                default:
+                    throw new ArgumentException("Invalid unit!");
+            }
+        }
+    }
+
+    public class QuantityLength
+    {
+        private readonly double value;
+        public readonly LengthUnit unit;
+        
+       public QuantityLength(double value, LengthUnit unit)
+       {
+            this.value = value;
+            this.unit = unit;
+       }
+
+        public double ConvertToBaseUnit()
+        {
+            return this.value * LengthUnitExtension.ConversionFector(this.unit);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is QuantityLength other &&
+               this.ConvertToBaseUnit()
+               .Equals(other.ConvertToBaseUnit());
+        }
+    }
+
     public class QuantityMeasurementApp
     {
         public QuantityMeasurementApp() { }
@@ -101,10 +147,54 @@ namespace QMAPP.BusinessLogic
             Console.WriteLine($"Equality Inch Result: {result}");
         }
 
+
+        public void HandleGenericLengthEquality()
+        {
+            QuantityLength[] quantities = new QuantityLength[2];
+
+            for (int i = 0; i < 2; i++)
+            {
+                Console.WriteLine($"Enter value for measurement {i + 1}:");
+
+                double value = double.Parse(Console.ReadLine());
+
+                Console.WriteLine("Choose Unit:");
+                Console.WriteLine("1. Inch");
+                Console.WriteLine("2. Feet");
+
+                int choice = int.Parse(Console.ReadLine());
+
+                LengthUnit unit;
+
+                switch (choice)
+                {
+                    case 1:
+                        unit = LengthUnit.INCH;
+                        break;
+
+                    case 2:
+                        unit = LengthUnit.FEET;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice");
+                        return;
+                }
+
+                quantities[i] = new QuantityLength(value, unit);
+            }
+
+            bool result = quantities[0].Equals(quantities[1]);
+
+            Console.WriteLine($"Result of Quantity Length Equality: {result}");
+        }
+
+
         public void QuantityMeasurmentMainMethod()
         {
-            HandleFeetEquality();
-            HandleInchEquality();
+            //HandleFeetEquality();
+            //HandleInchEquality();
+            HandleGenericLengthEquality();
         }
     }
 }
