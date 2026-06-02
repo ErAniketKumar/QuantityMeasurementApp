@@ -1,62 +1,4 @@
 ﻿using QMAPP.BusinessLogic;
-namespace QMAPP.BusinessLogic
-{
-    // length unit
-    public enum LengthUnit
-    {
-        INCH,
-        FEET,
-        YARDS,
-        CENTIMETER
-    }
-
-    public static class LengthUnitExtension
-    {
-        public static double ConversionFector(LengthUnit unit)
-        {
-            switch (unit)
-            {
-                case LengthUnit.FEET:
-                    return 12.0;
-                case LengthUnit.INCH:
-                    return 1.0;
-                case LengthUnit.YARDS:
-                    return 36.0;
-                case LengthUnit.CENTIMETER:
-                    return 0.393701;
-                default:
-                    throw new ArgumentException("Invalid unit!");
-            }
-        }
-    }
-
-    public class QuantityLength
-    {
-        private readonly double value;
-        public readonly LengthUnit unit;
-
-        public QuantityLength(double value, LengthUnit unit)
-        {
-            this.value = value;
-            this.unit = unit;
-        }
-
-        public double ConvertToBaseUnit()
-        {
-            return this.value * LengthUnitExtension.ConversionFector(this.unit);
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return obj is QuantityLength other &&
-            Math.Abs(
-               this.ConvertToBaseUnit() -
-               other.ConvertToBaseUnit()
-               ) < 0.0001;
-        }
-    }
-}
-
 public class QuantityMeasurementApp
 {
     public QuantityMeasurementApp() { }
@@ -224,6 +166,15 @@ public class QuantityMeasurementApp
         System.Console.WriteLine($"Addition of both result in target unit : {result}");
     }
 
+
+    public void HandleConversionBaseToTargetAndTargetFromBaseUC8Test()
+    {
+        double baseTotarget = LengthUnitExtension.ConvertToBaseUnit(LengthUnit.INCH, 10.0);
+        double result = LengthUnitExtension.ConvertFromBaseUnit(LengthUnit.YARDS, 3);
+
+        // System.Console.WriteLine(baseTotarget);
+        System.Console.WriteLine(result);
+    }
     public void QuantityMeasurmentMainMethod()
     {
         //HandleFeetEquality();
@@ -231,6 +182,8 @@ public class QuantityMeasurementApp
         // HandleGenericLengthEquality();
         // HandleConversionUnitFromSrcToBaseTarget();
         // HandleAdditionOfTwoUnitSameCategoryFirstApprandBased();
-        HandleAdditionOfTwoUnitTargetSpecification();
+        // HandleAdditionOfTwoUnitTargetSpecification();
+        HandleConversionBaseToTargetAndTargetFromBaseUC8Test();
     }
 }
+
