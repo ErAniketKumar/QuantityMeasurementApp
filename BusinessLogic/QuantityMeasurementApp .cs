@@ -12,13 +12,12 @@ public class QuantityMeasurementApp
         // quantityLength.HandleAdditionOfTwoUnitSameCategoryFirstApprandBased();
         // quantityLength.HandleAdditionOfTwoUnitTargetSpecification();
         // quantityLength.HandleConversionBaseToTargetAndTargetFromBaseUC8Test();
-        
+
 
         QuantityWeight quantityWeight = new QuantityWeight();
         // quantityWeight.HandleWeightEquality();
         // quantityWeight.HandleConversionOfUnitSrcToTarget();
         quantityWeight.HandleAdditionConvertResultFirstOperantUnit();
-
     }
 }
 
