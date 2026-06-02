@@ -172,11 +172,39 @@ public class QuantityMeasurementApp
     }
 
 
+    public double HandleAdditionBaseOnFirstApprand(double val1, LengthUnit unit1, double val2, LengthUnit unit2)
+    {
+        double firstOprBase = LengthUnitExtension.ConversionFector(unit1);
+
+        double secondOpr = LengthUnitExtension.ConversionFector(unit2);
+
+        double value1 = val1 * firstOprBase;
+
+        double value2 = val2 * secondOpr;
+
+        return (value1 + value2) / firstOprBase;
+
+    }
+
+    public void HandleAdditionOfTwoUnitSameCategoryFirstApprandBased()
+    {
+        System.Console.WriteLine("Enter the Value1");
+        double value1 = double.Parse(Console.ReadLine());
+
+        System.Console.WriteLine("Enter the Value2");
+        double value12 = double.Parse(Console.ReadLine());
+
+        double result = HandleAdditionBaseOnFirstApprand(value1, LengthUnit.FEET, value12, LengthUnit.INCH);
+        System.Console.WriteLine($"Addition of both result in 1st operand unit : {result}");
+    }
+
+
     public void QuantityMeasurmentMainMethod()
     {
         //HandleFeetEquality();
         //HandleInchEquality();
         // HandleGenericLengthEquality();
-        HandleConversionUnitFromSrcToBaseTarget();
+        // HandleConversionUnitFromSrcToBaseTarget();
+        HandleAdditionOfTwoUnitSameCategoryFirstApprandBased();
     }
 }
