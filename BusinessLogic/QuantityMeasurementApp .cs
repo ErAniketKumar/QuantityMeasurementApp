@@ -142,10 +142,41 @@ public class QuantityMeasurementApp
     }
 
 
+    public double HandleSrcToBaseUnitUc6(double value, LengthUnit unit)
+    {
+        if (double.IsInfinity(value))
+        {
+            System.Console.WriteLine("Infinity value!");
+            return -1.0;
+        }
+        if (unit == null)
+        {
+            System.Console.WriteLine("null unit type!");
+            return -1.0;
+        }
+
+        double baseVal = LengthUnitExtension.ConversionFector(unit);
+
+        double result = value * baseVal;
+        return result;
+    }
+
+    public void HandleConversionUnitFromSrcToBaseTarget()
+    {
+        System.Console.WriteLine("Enter the Value");
+        double value = double.Parse(Console.ReadLine());
+
+        double baseValue = HandleSrcToBaseUnitUc6(value, LengthUnit.YARDS);
+        System.Console.WriteLine($"base unit is inch and the value in inch is : {baseValue}");
+
+    }
+
+
     public void QuantityMeasurmentMainMethod()
     {
         //HandleFeetEquality();
         //HandleInchEquality();
-        HandleGenericLengthEquality();
+        // HandleGenericLengthEquality();
+        HandleConversionUnitFromSrcToBaseTarget();
     }
 }
