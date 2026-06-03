@@ -9,7 +9,6 @@ public class Quantity<U> where U : IMeasurable
         _value = value;
         _unit = unit;
     }
-
     public double Value => _value;
 
     public U Unit => _unit;
