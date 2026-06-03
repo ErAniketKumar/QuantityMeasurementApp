@@ -1,4 +1,5 @@
 namespace QMAPP.src;
+
 public class Quantity<U> where U : IMeasurable
 {
     private readonly double _value;
@@ -55,6 +56,37 @@ public class Quantity<U> where U : IMeasurable
 
         double result =
             _unit.ConvertFromBaseUnit(sumBase);
+
+        return new Quantity<U>(
+            result,
+            _unit
+        );
+    }
+
+    public Quantity<U> Sub(Quantity<U> other)
+    {
+        double firstBase = this._unit.ConvertToBaseUnit(this._value);
+        double secondBase = other._unit.ConvertToBaseUnit(other._value);
+
+        double sub = firstBase - secondBase;
+
+        double result = _unit.ConvertFromBaseUnit(sub);
+
+        return new Quantity<U>(
+            result,
+            _unit
+        );
+    }
+
+
+    public Quantity<U> Div(Quantity<U> other)
+    {
+        double firstBase = this._unit.ConvertToBaseUnit(this._value);
+        double secondBase = other._unit.ConvertToBaseUnit(other._value);
+
+        double div = firstBase / secondBase;
+
+        double result = _unit.ConvertFromBaseUnit(div);
 
         return new Quantity<U>(
             result,
