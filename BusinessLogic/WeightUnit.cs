@@ -1,8 +1,8 @@
-namespace QMAPP.BusinessLogic;
+// namespace QMAPP.BusinessLogic;
 
-public enum WeightUnit
-{
-    KILOGRAM,
-    GRAM,
-    POUND
-}
+// public enum WeightUnit
+// {
+//     KILOGRAM,
+//     GRAM,
+//     POUND
+// }

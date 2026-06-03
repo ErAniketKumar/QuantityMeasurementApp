@@ -1,10 +1,10 @@
-namespace QMAPP.BusinessLogic;
+// namespace QMAPP.BusinessLogic;
 
-public enum LengthUnit
-{
-    INCH,
-    FEET,
-    YARDS,
-    CENTIMETER,
-}
+// public enum LengthUnit
+// {
+//     INCH,
+//     FEET,
+//     YARDS,
+//     CENTIMETER,
+// }
 
