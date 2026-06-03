@@ -14,6 +14,43 @@ public class Quantity<U> where U : IMeasurable
 
     public U Unit => _unit;
 
+    private Quantity<U> Calculate(Quantity<U> other, U targetUnit, char operation)
+    {
+        if (other == null)
+            throw new ArgumentNullException(nameof(other));
+
+        if (targetUnit == null)
+            throw new ArgumentNullException(nameof(targetUnit));
+
+        double firstBase = this._unit.ConvertToBaseUnit(this._value);
+        double secondBase = other._unit.ConvertToBaseUnit(other._value);
+        double resultBase;
+
+        switch (operation)
+        {
+            case '+':
+                resultBase = firstBase + secondBase;
+                break;
+            case '-':
+                resultBase = firstBase - secondBase;
+                break;
+            case '/':
+                resultBase = firstBase / secondBase;
+                break;
+            default:
+                throw new ArgumentException("Invalid Operator");
+        }
+
+        double result = targetUnit.ConvertFromBaseUnit(resultBase);
+
+        return new Quantity<U>(
+            result,
+            targetUnit
+        );
+
+    }
+
+
     public override bool Equals(object? obj)
     {
         if (obj is not Quantity<U> other)
@@ -45,78 +82,24 @@ public class Quantity<U> where U : IMeasurable
 
     public Quantity<U> Add(Quantity<U> other)
     {
-        double firstBase =
-            _unit.ConvertToBaseUnit(_value);
-
-        double secondBase =
-            other._unit.ConvertToBaseUnit(other._value);
-
-        double sumBase =
-            firstBase + secondBase;
-
-        double result =
-            _unit.ConvertFromBaseUnit(sumBase);
-
-        return new Quantity<U>(
-            result,
-            _unit
-        );
+        return Calculate(other, _unit, '+');
     }
 
     public Quantity<U> Sub(Quantity<U> other)
     {
-        double firstBase = this._unit.ConvertToBaseUnit(this._value);
-        double secondBase = other._unit.ConvertToBaseUnit(other._value);
-
-        double sub = firstBase - secondBase;
-
-        double result = _unit.ConvertFromBaseUnit(sub);
-
-        return new Quantity<U>(
-            result,
-            _unit
-        );
+        return Calculate(other, _unit, '-');
     }
 
 
     public Quantity<U> Div(Quantity<U> other)
     {
-        double firstBase = this._unit.ConvertToBaseUnit(this._value);
-        double secondBase = other._unit.ConvertToBaseUnit(other._value);
-
-        double div = firstBase / secondBase;
-
-        double result = _unit.ConvertFromBaseUnit(div);
-
-        return new Quantity<U>(
-            result,
-            _unit
-        );
+        return Calculate(other, _unit, '/');
     }
 
-    public Quantity<U> Add(
-        Quantity<U> other,
-        U targetUnit
-    )
+    public Quantity<U> Add(Quantity<U> other, U targetUnit)
     {
-        double firstBase =
-            _unit.ConvertToBaseUnit(_value);
-
-        double secondBase =
-            other._unit.ConvertToBaseUnit(other._value);
-
-        double sumBase =
-            firstBase + secondBase;
-
-        double result =
-            targetUnit.ConvertFromBaseUnit(sumBase);
-
-        return new Quantity<U>(
-            result,
-            targetUnit
-        );
+        return Calculate(other, targetUnit, '+');
     }
-
     public override int GetHashCode()
     {
         return HashCode.Combine(_value, _unit);

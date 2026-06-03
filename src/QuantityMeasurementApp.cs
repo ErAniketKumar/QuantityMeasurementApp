@@ -3,54 +3,25 @@ public class QuantityMeasurementApp
 {
     public void UC10()
     {
-        Quantity<LengthUnit> q1 =
-                    new Quantity<LengthUnit>(
-                        1,
-                        LengthUnit.INCH
-                    );
+        Quantity<LengthUnit> q1 = new Quantity<LengthUnit>(1, LengthUnit.INCH);
 
-        Quantity<LengthUnit> q2 =
-            new Quantity<LengthUnit>(
-                12,
-                LengthUnit.INCH
-            );
+        Quantity<LengthUnit> q2 = new Quantity<LengthUnit>(12, LengthUnit.INCH);
 
         Console.WriteLine(q1.Equals(q2));
 
-        var converted =
-            q1.ConvertTo(
-                LengthUnit.INCH
-            );
+        var converted = q1.ConvertTo(LengthUnit.INCH);
 
-        Console.WriteLine(
-            converted.Value
-        );
+        Console.WriteLine(converted.Value);
 
-        var added =
-            q1.Add(
-                q2,
-                LengthUnit.FEET
-            );
+        var added = q1.Add(q2, LengthUnit.FEET);
 
-        Console.WriteLine(
-            added.Value
-        );
+        Console.WriteLine(added.Value);
 
-        Quantity<WeightUnit> w1 =
-            new Quantity<WeightUnit>(
-                1,
-                WeightUnit.KILOGRAM
-            );
+        Quantity<WeightUnit> w1 = new Quantity<WeightUnit>(1, WeightUnit.KILOGRAM);
 
-        Quantity<WeightUnit> w2 =
-            new Quantity<WeightUnit>(
-                1000,
-                WeightUnit.GRAM
-            );
+        Quantity<WeightUnit> w2 = new Quantity<WeightUnit>(1000, WeightUnit.GRAM);
 
-        Console.WriteLine(
-            w1.Equals(w2)
-        );
+        Console.WriteLine(w1.Equals(w2));
     }
 
     public void UC11()
@@ -86,10 +57,27 @@ public class QuantityMeasurementApp
         System.Console.WriteLine(divided.Value);
 
     }
+
+    public void UC13()
+    {
+        Quantity<LengthUnit> q1 = new Quantity<LengthUnit>(1, LengthUnit.YARDS);
+        Quantity<LengthUnit> q2 = new Quantity<LengthUnit>(18, LengthUnit.INCH);
+
+        var substracted = q1.Sub(q2);
+        System.Console.WriteLine(substracted.Value);
+
+        Quantity<VolumeUnit> v1 = new Quantity<VolumeUnit>(3, VolumeUnit.LITRES);
+        Quantity<VolumeUnit> v2 = new Quantity<VolumeUnit>(500, VolumeUnit.MILLILITRES);
+
+        var divided = v1.Div(v2);
+
+        System.Console.WriteLine(divided.Value);
+    }
     public void Run()
     {
         // UC10();
         // UC11();
-        UC12();
+        // UC12();
+        UC13();
     }
 }
