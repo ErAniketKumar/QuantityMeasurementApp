@@ -68,9 +68,28 @@ public class QuantityMeasurementApp
 
         System.Console.WriteLine(added.Value);
     }
+
+    public void UC12()
+    {
+
+        Quantity<LengthUnit> q1 = new Quantity<LengthUnit>(1, LengthUnit.YARDS);
+        Quantity<LengthUnit> q2 = new Quantity<LengthUnit>(18, LengthUnit.INCH);
+
+        var substracted = q1.Sub(q2);
+        System.Console.WriteLine(substracted.Value);
+
+        Quantity<VolumeUnit> v1 = new Quantity<VolumeUnit>(3, VolumeUnit.LITRES);
+        Quantity<VolumeUnit> v2 = new Quantity<VolumeUnit>(500, VolumeUnit.MILLILITRES);
+
+        var divided = v1.Div(v2);
+
+        System.Console.WriteLine(divided.Value);
+
+    }
     public void Run()
     {
         // UC10();
-        UC11();
+        // UC11();
+        UC12();
     }
 }
