@@ -14,13 +14,16 @@ public class Quantity<U> where U : IMeasurable
 
     public U Unit => _unit;
 
-    private Quantity<U> Calculate(Quantity<U> other, U targetUnit, char operation)
+    private Quantity<U> Calculate(Quantity<U> other, U targetUnit, ArithmeticOperation operation)
     {
         if (other == null)
             throw new ArgumentNullException(nameof(other));
 
         if (targetUnit == null)
             throw new ArgumentNullException(nameof(targetUnit));
+            
+        _unit.ValidateOperationSupport(operation);
+        other._unit.ValidateOperationSupport(operation);
 
         double firstBase = this._unit.ConvertToBaseUnit(this._value);
         double secondBase = other._unit.ConvertToBaseUnit(other._value);
@@ -28,13 +31,13 @@ public class Quantity<U> where U : IMeasurable
 
         switch (operation)
         {
-            case '+':
+            case ArithmeticOperation.ADD:
                 resultBase = firstBase + secondBase;
                 break;
-            case '-':
+            case ArithmeticOperation.SUB:
                 resultBase = firstBase - secondBase;
                 break;
-            case '/':
+            case ArithmeticOperation.DIV:
                 resultBase = firstBase / secondBase;
                 break;
             default:
@@ -82,23 +85,23 @@ public class Quantity<U> where U : IMeasurable
 
     public Quantity<U> Add(Quantity<U> other)
     {
-        return Calculate(other, _unit, '+');
+        return Calculate(other, _unit, ArithmeticOperation.ADD);
     }
 
     public Quantity<U> Sub(Quantity<U> other)
     {
-        return Calculate(other, _unit, '-');
+        return Calculate(other, _unit, ArithmeticOperation.SUB);
     }
 
 
     public Quantity<U> Div(Quantity<U> other)
     {
-        return Calculate(other, _unit, '/');
+        return Calculate(other, _unit, ArithmeticOperation.DIV);
     }
 
     public Quantity<U> Add(Quantity<U> other, U targetUnit)
     {
-        return Calculate(other, targetUnit, '+');
+        return Calculate(other, targetUnit, ArithmeticOperation.ADD);
     }
     public override int GetHashCode()
     {
