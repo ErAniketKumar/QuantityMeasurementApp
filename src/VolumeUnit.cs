@@ -1,3 +1,5 @@
+namespace QMAPP.src;
+
 public sealed class VolumeUnit : IMeasurable
 {
     private readonly double _factor;
@@ -21,6 +23,16 @@ public sealed class VolumeUnit : IMeasurable
     public double ConvertToBaseUnit(double value)
     {
         return value * _factor;
+    }
+    public bool SupportsArithmetic()
+    {
+        return true;
+    }
+
+    public void ValidateOperationSupport(
+        ArithmeticOperation operation)
+    {
+        // nothing
     }
 
 }

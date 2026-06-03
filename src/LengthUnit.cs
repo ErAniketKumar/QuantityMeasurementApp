@@ -30,4 +30,15 @@ public sealed class LengthUnit : IMeasurable
     {
         return value / _factor;
     }
+
+    public bool SupportsArithmetic()
+    {
+        return true;
+    }
+
+    public void ValidateOperationSupport(
+        ArithmeticOperation operation)
+    {
+        // nothing
+    }
 }

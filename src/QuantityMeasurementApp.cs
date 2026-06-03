@@ -73,11 +73,32 @@ public class QuantityMeasurementApp
 
         System.Console.WriteLine(divided.Value);
     }
+    public void UC14()
+    {
+        var t1 =
+        new Quantity<TemperatureUnit>(
+            100,
+            TemperatureUnit.CELSIUS
+        );
+
+        var t2 =
+        new Quantity<TemperatureUnit>(
+            212,
+            TemperatureUnit.FAHRENHEIT
+        );
+
+        System.Console.WriteLine(t1.Equals(t2));
+
+        var converted = t1.ConvertTo(TemperatureUnit.FAHRENHEIT);
+        System.Console.WriteLine(converted.Value);
+
+    }
     public void Run()
     {
         // UC10();
         // UC11();
         // UC12();
-        UC13();
+        // UC13();
+        UC14();
     }
 }
