@@ -21,7 +21,7 @@ public class Quantity<U> where U : IMeasurable
 
         if (targetUnit == null)
             throw new ArgumentNullException(nameof(targetUnit));
-            
+
         _unit.ValidateOperationSupport(operation);
         other._unit.ValidateOperationSupport(operation);
 
@@ -102,6 +102,12 @@ public class Quantity<U> where U : IMeasurable
     public Quantity<U> Add(Quantity<U> other, U targetUnit)
     {
         return Calculate(other, targetUnit, ArithmeticOperation.ADD);
+    }
+
+
+    public override string ToString()
+    {
+        return $"{_value} {_unit}";
     }
     public override int GetHashCode()
     {
