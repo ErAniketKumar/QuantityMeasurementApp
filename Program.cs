@@ -6,6 +6,8 @@ using QMAPP.Services;
 using QMAPP.Controllers;
 using QMAPP.DTOs;
 using QMAPP.Factory;
+using QMAPP.Data;
+using Microsoft.EntityFrameworkCore;
 
 // QuantityMeasurementApp quantityMeasurementApp = new QuantityMeasurementApp();
 
@@ -25,11 +27,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 // IQuantityMeasurementService service = new QuantityMeasurementServiceImpl(repo);
 
+builder.Services.AddDbContext<QmDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 builder.Services.AddSingleton<IQuantityFactory, QuantityFactory>();
-builder.Services.AddScoped<IQuantityMeasurementRepository, QuantityMeasurementCacheRepository>();
+// builder.Services.AddScoped<IQuantityMeasurementRepository, QuantityMeasurementCacheRepository>();
 builder.Services.AddScoped<IQuantityMeasurementService, QuantityMeasurementServiceImpl>();
 
+builder.Services.AddScoped<IQuantityMeasurementRepository, QuantityMeasurementDbeRepository>();
+
+
 builder.Services.AddControllers();
+
+
 
 // var dto1 = new QuantityDTO
 // {
@@ -76,10 +88,12 @@ using (var scope = app.Services.CreateScope())
     Console.WriteLine(result);
 
     object add = service.Add(dto1, dto2);
+
     System.Console.WriteLine(add.ToString());
 
     object sub = service.Sub(dto1, dto2);
     System.Console.WriteLine(sub.ToString());
+
 
 }
 

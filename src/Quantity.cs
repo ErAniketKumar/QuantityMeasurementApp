@@ -105,9 +105,14 @@ public class Quantity<U> where U : IMeasurable
     }
 
 
+    // public override string ToString()
+    // {
+    //     return $"{_value} {_unit}";
+    // }
+
     public override string ToString()
     {
-        return $"{_value} {_unit}";
+        return $"{Value} {Unit}";
     }
     public override int GetHashCode()
     {

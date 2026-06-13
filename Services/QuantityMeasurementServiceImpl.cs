@@ -4,6 +4,8 @@ using QMAPP.src;
 using QMAPP.Factory;
 using System.Diagnostics;
 
+using QMAPP.Entities;
+
 namespace QMAPP.Services;
 
 public class QuantityMeasurementServiceImpl
@@ -21,21 +23,85 @@ public class QuantityMeasurementServiceImpl
         _factory = factory;
     }
 
+
+    private void SaveHistory(
+        QuantityDTO q1,
+        QuantityDTO q2,
+        string operation,
+        string result
+    )
+    {
+        _repository.Save(
+            new QuantityMeasurementEntity
+            {
+                Value1 = q1.Value,
+                Unit1 = q1.Unit,
+
+                Value2 = q2.Value,
+                Unit2 = q2.Unit,
+
+                MeasurementType = q1.MeasurementType,
+
+                Operation = operation,
+
+                Result = result,
+
+                CreatedAt = DateTime.Now
+            }
+        );
+    }
+
+
+    private void SaveConversionHistory(
+        QuantityDTO dto,
+        string targetUnit,
+        string result
+    )
+    {
+        _repository.Save(
+            new QuantityMeasurementEntity
+            {
+                Value1 = dto.Value,
+                Unit1 = dto.Unit,
+
+                Value2 = 0,
+                Unit2 = targetUnit,
+
+                MeasurementType = dto.MeasurementType,
+
+                Operation = "CONVERT",
+
+                Result = result,
+
+                CreatedAt = DateTime.Now
+            }
+        );
+    }
+
+
+
     public bool Compare(QuantityDTO q1, QuantityDTO q2)
     {
         // business logic here
 
-        if (q1.MeasurementType != q1.MeasurementType)
+        if (q1.MeasurementType != q2.MeasurementType)
         {
-            System.Console.WriteLine("measurment type missmatched!");
-            return false;
+            throw new ArgumentException("Measurement types do not match");
         }
 
         dynamic d1 = _factory.CreateQuantity(q1);
 
         dynamic d2 = _factory.CreateQuantity(q2);
 
-        return d1.Equals(d2);
+        bool result = d1.Equals(d2);
+        SaveHistory(
+            q1,
+            q2,
+            "COMPARE",
+            result.ToString()
+        );
+
+        return result;
     }
 
 
@@ -45,29 +111,58 @@ public class QuantityMeasurementServiceImpl
 
         dynamic unit = _factory.GetUnit(dto.MeasurementType, targetUnit);
 
-        return quantity.ConvertTo(unit);
+        var result = quantity.ConvertTo(unit);
+        
+        SaveConversionHistory(
+           dto,
+           targetUnit,
+           result.ToString()
+         );
+
+        return result;
     }
 
     public object Add(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
-        return q1.Add(q2);
+        var result = q1.Add(q2);
+        SaveHistory(
+            dto1,
+            dto2,
+            "ADD",
+            result.ToString()
+        );
+        return result;
     }
 
     public object Sub(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
-        return q1.Sub(q2);
+        var result = q1.Sub(q2);
+        SaveHistory(
+            dto1,
+            dto2,
+            "SUB",
+            result.ToString()
+        );
+        return result;
     }
 
     public object Div(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
-        return q1.Div(q2);
+        var result = q1.Div(q2);
+
+        SaveHistory(
+            dto1,
+            dto2,
+            "DIV",
+            result.ToString()
+        );
+
+        return result;
     }
-
-
 }
