@@ -4,9 +4,13 @@ namespace QMAPP.Repositories;
 
 public interface IQuantityMeasurementRepository
 {
-    void Save(QuantityMeasurementEntity entity);
-    Task<List<QuantityMeasurementEntity>> GetAll();
-    void DeleteAll();
+    Task SaveAsync(
+        QuantityMeasurementEntity entity
+    );
 
+    Task<List<QuantityMeasurementEntity>>
+        GetAll();
+
+    Task DeleteAll();
 }
 

@@ -1,16 +1,21 @@
-using QMAPP.DTOs;
-
 namespace QMAPP.Services;
+
+using QMAPP.DTOs;
+using QMAPP.Entities;
 
 public interface IQuantityMeasurementService
 {
-    bool Compare(QuantityDTO q1, QuantityDTO q2);
+    Task<bool> Compare(QuantityDTO q1, QuantityDTO q2);
 
-    object Convert(QuantityDTO dto, string targetUnit);
+    Task<object> Convert(QuantityDTO dto, string targetUnit);
 
-    object Add(QuantityDTO dto1, QuantityDTO dto2);
+    Task<object> Add(QuantityDTO dto1, QuantityDTO dto2);
 
-    object Sub(QuantityDTO dto1, QuantityDTO dto2);
+    Task<object> Sub(QuantityDTO dto1, QuantityDTO dto2);
 
-    object Div(QuantityDTO dto1, QuantityDTO dto2);
+    Task<object> Div(QuantityDTO dto1, QuantityDTO dto2);
+
+    Task<List<QuantityMeasurementEntity>> GetHistory();
+
+    Task DeleteHistory();
 }

@@ -1,8 +1,6 @@
 using QMAPP.DTOs;
 using QMAPP.Repositories;
-using QMAPP.src;
 using QMAPP.Factory;
-using System.Diagnostics;
 
 using QMAPP.Entities;
 
@@ -24,33 +22,25 @@ public class QuantityMeasurementServiceImpl
     }
 
 
-    private void SaveHistory(
-        QuantityDTO q1,
-        QuantityDTO q2,
-        string operation,
-        string result
-    )
+    private async Task SaveHistory(
+     QuantityDTO q1,
+     QuantityDTO q2,
+     string operation,
+     string result)
     {
-        _repository.Save(
+        await _repository.SaveAsync(
             new QuantityMeasurementEntity
             {
                 Value1 = q1.Value,
                 Unit1 = q1.Unit,
-
                 Value2 = q2.Value,
                 Unit2 = q2.Unit,
-
                 MeasurementType = q1.MeasurementType,
-
                 Operation = operation,
-
                 Result = result,
-
                 CreatedAt = DateTime.Now
-            }
-        );
+            });
     }
-
 
     private void SaveConversionHistory(
         QuantityDTO dto,
@@ -58,7 +48,7 @@ public class QuantityMeasurementServiceImpl
         string result
     )
     {
-        _repository.Save(
+        _repository.SaveAsync(
             new QuantityMeasurementEntity
             {
                 Value1 = dto.Value,
@@ -80,39 +70,43 @@ public class QuantityMeasurementServiceImpl
 
 
 
-    public bool Compare(QuantityDTO q1, QuantityDTO q2)
+    public async Task<bool> Compare(
+         QuantityDTO q1,
+         QuantityDTO q2)
     {
-        // business logic here
-
-        if (q1.MeasurementType != q2.MeasurementType)
+        if (q1.MeasurementType !=
+           q2.MeasurementType)
         {
-            throw new ArgumentException("Measurement types do not match");
+            throw new ArgumentException(
+                "Measurement types do not match");
         }
 
-        dynamic d1 = _factory.CreateQuantity(q1);
+        dynamic d1 =
+            _factory.CreateQuantity(q1);
 
-        dynamic d2 = _factory.CreateQuantity(q2);
+        dynamic d2 =
+            _factory.CreateQuantity(q2);
 
         bool result = d1.Equals(d2);
-        SaveHistory(
+
+        await SaveHistory(
             q1,
             q2,
             "COMPARE",
-            result.ToString()
-        );
+            result.ToString());
 
         return result;
     }
 
 
-    public object Convert(QuantityDTO dto, string targetUnit)
+    public async Task<object> Convert(QuantityDTO dto, string targetUnit)
     {
         dynamic quantity = _factory.CreateQuantity(dto);
 
         dynamic unit = _factory.GetUnit(dto.MeasurementType, targetUnit);
 
         var result = quantity.ConvertTo(unit);
-        
+
         SaveConversionHistory(
            dto,
            targetUnit,
@@ -122,7 +116,7 @@ public class QuantityMeasurementServiceImpl
         return result;
     }
 
-    public object Add(QuantityDTO dto1, QuantityDTO dto2)
+    public async Task<object> Add(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
@@ -136,7 +130,7 @@ public class QuantityMeasurementServiceImpl
         return result;
     }
 
-    public object Sub(QuantityDTO dto1, QuantityDTO dto2)
+    public async Task<object> Sub(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
@@ -150,7 +144,7 @@ public class QuantityMeasurementServiceImpl
         return result;
     }
 
-    public object Div(QuantityDTO dto1, QuantityDTO dto2)
+    public async Task<object> Div(QuantityDTO dto1, QuantityDTO dto2)
     {
         dynamic q1 = _factory.CreateQuantity(dto1);
         dynamic q2 = _factory.CreateQuantity(dto2);
@@ -164,5 +158,17 @@ public class QuantityMeasurementServiceImpl
         );
 
         return result;
+    }
+
+
+    public async Task<List<QuantityMeasurementEntity>>
+    GetHistory()
+    {
+        return await _repository.GetAll();
+    }
+
+    public async Task DeleteHistory()
+    {
+        await _repository.DeleteAll();
     }
 }
