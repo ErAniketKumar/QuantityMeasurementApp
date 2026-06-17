@@ -11,4 +11,5 @@ public class QmDbContext : DbContext
     }
 
     public DbSet<QuantityMeasurementEntity> QuantityMeasurementEntities { get; set; }
+    public DbSet<User> Users { get; set; }
 }

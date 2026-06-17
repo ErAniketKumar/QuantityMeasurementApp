@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QMAPP.DTOs;
 using QMAPP.Services;
@@ -101,6 +102,7 @@ public class QuantityMeasurementController : ControllerBase
     }
 
     [HttpDelete("history")]
+    [Authorize]
     public async Task<IActionResult> DeleteHistory()
     {
         await _service.DeleteHistory();
