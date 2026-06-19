@@ -1,0 +1,6 @@
+@QMAPP_HostAddress = http://localhost:5098
+
+GET {{QMAPP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,50 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navbar container */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background: #2563eb;
+  color: white;
+}
+
+/* Logo */
+.logo span {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Nav links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+/* Links */
+.nav-links li a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+/* Hover effect */
+.nav-links li a:hover {
+  opacity: 0.8;
+}
+
+/* Active route styling (optional Angular class) */
+.nav-links li a.active {
+  border-bottom: 2px solid white;
+  padding-bottom: 2px;
+}
