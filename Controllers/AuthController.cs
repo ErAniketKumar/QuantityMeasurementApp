@@ -42,7 +42,7 @@ public class AuthController
 
     [HttpPost("google")]
     public async Task<IActionResult>
-GoogleLogin(
+GoogleLogin([FromBody]
     GoogleLoginDto dto)
     {
         var result =

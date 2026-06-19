@@ -1,5 +1,4 @@
 namespace QMAPP.Factory;
-
 using QMAPP.DTOs;
 using QMAPP.src;
 
@@ -90,57 +89,6 @@ public class QuantityFactory : IQuantityFactory
         };
     }
 
-
-    // public object GetUnit(
-    //    string measurementType,
-    //    string unit)
-    // {
-    //     switch (measurementType.ToUpper())
-    //     {
-    //         case "LENGTH":
-    //             return unit.ToUpper() switch
-    //             {
-    //                 "FEET" => LengthUnit.FEET,
-    //                 "INCH" => LengthUnit.INCH,
-    //                 "YARDS" => LengthUnit.YARDS,
-    //                 "CENTIMETER" => LengthUnit.CENTIMETER,
-    //                 _ => throw new ArgumentException("Invalid Length Unit")
-    //             };
-
-    //         case "WEIGHT":
-    //             return unit.ToUpper() switch
-    //             {
-    //                 "GRAM" => WeightUnit.GRAM,
-    //                 "KILOGRAM" => WeightUnit.KILOGRAM,
-    //                 _ => throw new ArgumentException("Invalid Weight Unit")
-    //             };
-
-    //         case "VOLUME":
-    //             return unit.ToUpper() switch
-    //             {
-    //                 "LITRE" => VolumeUnit.LITRE,
-    //                 "MILLILITRE" => VolumeUnit.MILLILITRE,
-    //                 "GALLON" => VolumeUnit.GALLON,
-    //                 _ => throw new ArgumentException("Invalid Volume Unit")
-    //             };
-
-    //         case "TEMPERATURE":
-    //             return unit.ToUpper() switch
-    //             {
-    //                 "CELSIUS" => TemperatureUnit.CELSIUS,
-    //                 "FAHRENHEIT" => TemperatureUnit.FAHRENHEIT,
-    //                 _ => throw new ArgumentException("Invalid Temperature Unit")
-    //             };
-
-    //         default:
-    //             throw new ArgumentException(
-    //                 "Invalid Measurement Type");
-    //     }
-    // }
-
-
-
-
     public object GetUnit(
            string measurementType,
            string unit)
@@ -187,8 +135,4 @@ public class QuantityFactory : IQuantityFactory
                     "Invalid Measurement Type");
         }
     }
-
-
-
-
 }
