@@ -3,7 +3,7 @@ export interface compareRequest {
   unit1: string;
   value2: number;
   unit2: string;
-  measurmentType: string;
+  measurementType: string;
 }
 
 export interface Quantity {

@@ -48,4 +48,9 @@
 
     <button type="submit">Convert</button>
   </form>
+
+  <div *ngIf="resultText" class="result-card fade-in">
+    <h3>Result</h3>
+    <p>{{ resultText }}</p>
+  </div>
 </div>

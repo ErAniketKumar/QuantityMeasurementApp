@@ -27,4 +27,12 @@ export class AuthService {
   googleAuth(idToken: string) {
     return this.http.post<AuthResponse>(`${this.apiUrl}/google`, { idToken });
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
 }

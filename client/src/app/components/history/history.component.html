@@ -1,43 +1,42 @@
-<div class="container">
+<div class="container" style="max-width: 1000px;">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+    <h2>Operation History</h2>
+    <button *ngIf="historyRecords.length > 0" (click)="clearHistory()" style="background-color: var(--danger-color); width: auto;">
+      Clear History
+    </button>
+  </div>
 
-  <h2>Operation History</h2>
+  <div *ngIf="loading" style="text-align: center; padding: 2rem;">
+    <p>Loading history...</p>
+  </div>
 
-  <table>
+  <div *ngIf="!loading && historyRecords.length === 0" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+    <p>No history found.</p>
+  </div>
 
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Operation</th>
-        <th>Measurement</th>
-        <th>Result</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-
-    <tbody>
-
-      <tr>
-        <td>1</td>
-        <td>Add</td>
-        <td>Length</td>
-        <td>15 Meter</td>
-        <td>17 Jun 2026</td>
-      </tr>
-
-      <tr>
-        <td>2</td>
-        <td>Convert</td>
-        <td>Length</td>
-        <td>1000 Meter</td>
-        <td>17 Jun 2026</td>
-      </tr>
-
-    </tbody>
-
-  </table>
-
-  <button>
-    Clear History
-  </button>
-
+  <div class="table-wrapper" *ngIf="!loading && historyRecords.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Operation</th>
+          <th>Input</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of historyRecords">
+          <td>{{ record.createdAt | date:'short' }}</td>
+          <td><span style="font-weight: 600; text-transform: uppercase;">{{ record.operationType || 'Unknown' }}</span></td>
+          <td>
+            <span *ngIf="record.value1">{{ record.value1 }} {{ record.unit1 }}</span>
+            <span *ngIf="record.value2"> & {{ record.value2 }} {{ record.unit2 }}</span>
+          </td>
+          <td style="font-weight: bold; color: var(--success-color);">
+            {{ record.result }} {{ record.targetUnit || record.unit1 }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

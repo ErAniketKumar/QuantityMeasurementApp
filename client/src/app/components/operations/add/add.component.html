@@ -1,41 +1,45 @@
 <div class="container">
-
-  <h2>Quantity Operation</h2>
-
-  <form>
-
+  <h2>Add Quantities</h2>
+  <form [formGroup]="operationForm" (ngSubmit)="handleAdd()">
     <label>Measurement Type</label>
-
-    <select>
-      <option>Length</option>
-      <option>Weight</option>
-      <option>Volume</option>
+    <select formControlName="measurementType" (change)="onMeasurementTypeChange()">
+      <option value="">Select Type</option>
+      <option *ngFor="let type of unitMapService.MEASUREMENT_TYPES" [value]="type">{{ type }}</option>
     </select>
 
-    <h3>Quantity 1</h3>
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex: 1;">
+        <label>Value 1</label>
+        <input type="number" formControlName="val1" />
+      </div>
+      <div style="flex: 1;">
+        <label>Unit 1</label>
+        <select formControlName="unit1">
+          <option value="">Select Unit</option>
+          <option *ngFor="let unit of availableUnits" [value]="unit">{{ unit }}</option>
+        </select>
+      </div>
+    </div>
 
-    <input type="number" placeholder="Value">
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex: 1;">
+        <label>Value 2</label>
+        <input type="number" formControlName="val2" />
+      </div>
+      <div style="flex: 1;">
+        <label>Unit 2</label>
+        <select formControlName="unit2">
+          <option value="">Select Unit</option>
+          <option *ngFor="let unit of availableUnits" [value]="unit">{{ unit }}</option>
+        </select>
+      </div>
+    </div>
 
-    <select>
-      <option>Meter</option>
-      <option>Kilometer</option>
-      <option>Centimeter</option>
-    </select>
-
-    <h3>Quantity 2</h3>
-
-    <input type="number" placeholder="Value">
-
-    <select>
-      <option>Meter</option>
-      <option>Kilometer</option>
-      <option>Centimeter</option>
-    </select>
-
-    <button>
-      Submit
-    </button>
-
+    <button type="submit" [disabled]="operationForm.invalid">Add Quantities</button>
   </form>
 
+  <div *ngIf="resultText" class="result-card fade-in">
+    <h3>Result</h3>
+    <p>{{ resultText }}</p>
+  </div>
 </div>
