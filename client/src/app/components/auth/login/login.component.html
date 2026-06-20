@@ -1,0 +1,24 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <div id="googleBtn"></div>
+  <div class="separator">OR</div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="handleLoginSubmit()">
+    <input type="email" placeholder="Enter Email" formControlName="email" />
+
+    <input
+      type="password"
+      placeholder="Enter Password"
+      formControlName="password"
+    />
+
+    <button type="submit" [disabled]="loginForm.invalid" class="submit-btn">
+      Login
+    </button>
+  </form>
+
+  <p>
+    Don't have an account?
+    <a routerLink="/register">Register</a>
+  </p>
+</div>

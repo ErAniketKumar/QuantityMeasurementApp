@@ -1,0 +1,37 @@
+<div class="register-container">
+  <h2>Register</h2>
+
+  <div id="googleBtn"></div>
+
+  <div class="separator">OR</div>
+
+  <form [formGroup]="registerForm" (ngSubmit)="HandleRegisterFormSubmit()">
+    <input type="text" placeholder="Full Name" formControlName="name" />
+
+    <input type="email" placeholder="Enter Email" formControlName="email" />
+
+    <input type="password" placeholder="Password" formControlName="password" />
+
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      formControlName="rePassword"
+    />
+
+    @if (
+      registerForm.errors?.["passwordMismatch"] &&
+      registerForm.get("rePassword")?.touched
+    ) {
+      <p class="error-message">Passwords do not match</p>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid" class="submit-btn">
+      Register
+    </button>
+  </form>
+
+  <p>
+    Already have an account?
+    <a routerLink="/login">Login</a>
+  </p>
+</div>

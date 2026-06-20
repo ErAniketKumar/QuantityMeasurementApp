@@ -1,0 +1,160 @@
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: #3182ce;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #718096;
+}
+
+.about-content section {
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: #2d3748;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #edf2f7;
+  padding-bottom: 10px;
+}
+
+.info-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4a5568;
+  margin-bottom: 15px;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.tech-card {
+  background: #f7fafc;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tech-icon {
+  font-size: 3rem;
+  color: #4299e1;
+  margin-bottom: 15px;
+}
+
+.tech-card h3 {
+  font-size: 1.3rem;
+  color: #2d3748;
+  margin-bottom: 15px;
+}
+
+.tech-card p {
+  color: #718096;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.dev-desc {
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 25px;
+}
+
+.api-links {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.api-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.swagger-btn {
+  background-color: #85ea2d;
+  color: #1a3614;
+}
+
+.swagger-btn:hover {
+  background-color: #6ac020;
+  transform: translateY(-2px);
+}
+
+.swagger-btn-https {
+  background-color: #2d8cea;
+}
+
+.swagger-btn-https:hover {
+  background-color: #206dc0;
+  transform: translateY(-2px);
+}
+
+.api-endpoints {
+  background: #f7fafc;
+  padding: 25px;
+  border-radius: 10px;
+  border-left: 4px solid #4299e1;
+}
+
+.api-endpoints h3 {
+  margin-bottom: 15px;
+  color: #2d3748;
+}
+
+.endpoint-list {
+  list-style: none;
+  padding: 0;
+}
+
+.endpoint-list li {
+  margin-bottom: 12px;
+  color: #4a5568;
+}
+
+.endpoint-list code {
+  background: #edf2f7;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: #e53e3e;
+  font-family: monospace;
+  font-weight: 600;
+}

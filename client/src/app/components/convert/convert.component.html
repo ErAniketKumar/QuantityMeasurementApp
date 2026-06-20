@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Unit Conversion</h2>
+
+  <form [formGroup]="convertForm" (ngSubmit)="handleConvert()">
+    <!-- Measurement Type -->
+    <label>Measurement Type</label>
+
+    <select
+      formControlName="measurementType"
+      (change)="onMeasurementTypeChange()"
+    >
+      <option value="">Select Type</option>
+
+      <option
+        *ngFor="let type of unitMapService.MEASUREMENT_TYPES"
+        [value]="type"
+      >
+        {{ type }}
+      </option>
+    </select>
+
+    <!-- Value -->
+    <label>Value</label>
+
+    <input type="number" formControlName="value" />
+
+    <!-- Current Unit -->
+    <label>Current Unit</label>
+
+    <select formControlName="unit">
+      <option value="">Select Unit</option>
+
+      <option *ngFor="let unit of availableUnits" [value]="unit">
+        {{ unit }}
+      </option>
+    </select>
+
+    <!-- Target Unit -->
+    <label>Target Unit</label>
+
+    <select formControlName="targetUnit">
+      <option value="">Select Unit</option>
+
+      <option *ngFor="let unit of availableUnits" [value]="unit">
+        {{ unit }}
+      </option>
+    </select>
+
+    <button type="submit">Convert</button>
+  </form>
+
+  <div *ngIf="resultText" class="result-card fade-in">
+    <h3>Result</h3>
+    <p>{{ resultText }}</p>
+  </div>
+</div>
