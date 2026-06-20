@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QMAPP.Data;
 using QMAPP.Entities;
@@ -26,4 +27,6 @@ public class UserRepository : IUserRepository
 
         await _context.SaveChangesAsync();
     }
+
+   
 }

@@ -109,6 +109,9 @@ builder.Services.AddCors(options =>
         });
 });
 
+
+
+
 var app = builder.Build();
 
 app.UseCors("AngularPolicy");
@@ -117,21 +120,23 @@ app.UseCors("AngularPolicy");
 // Middleware Pipeline
 // ======================================
 
+app.UseCors("AngularPolicy");
 
-
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<QmDbContext>();
+    db.Database.Migrate();
+}
 
 app.Run();
