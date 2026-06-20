@@ -1,0 +1,45 @@
+<div class="container">
+  <h2>Compare Quantities</h2>
+  <form [formGroup]="compareForm" (ngSubmit)="handleCompare()">
+    <label>Measurement Type</label>
+    <select formControlName="measurementType" (change)="onMeasurementTypeChange()">
+      <option value="">Select Type</option>
+      <option *ngFor="let type of unitMapService.MEASUREMENT_TYPES" [value]="type">{{ type }}</option>
+    </select>
+
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex: 1;">
+        <label>Value 1</label>
+        <input type="number" formControlName="value1" />
+      </div>
+      <div style="flex: 1;">
+        <label>Unit 1</label>
+        <select formControlName="unit1">
+          <option value="">Select Unit</option>
+          <option *ngFor="let unit of availableUnits" [value]="unit">{{ unit }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex: 1;">
+        <label>Value 2</label>
+        <input type="number" formControlName="value2" />
+      </div>
+      <div style="flex: 1;">
+        <label>Unit 2</label>
+        <select formControlName="unit2">
+          <option value="">Select Unit</option>
+          <option *ngFor="let unit of availableUnits" [value]="unit">{{ unit }}</option>
+        </select>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="compareForm.invalid">Compare</button>
+  </form>
+
+  <div *ngIf="resultText" class="result-card fade-in">
+    <h3>Result</h3>
+    <p>{{ resultText }}</p>
+  </div>
+</div>
