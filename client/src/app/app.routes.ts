@@ -13,7 +13,7 @@ import { DivComponent } from './components/operations/div/div.component';
 import { HomeComponent } from './components/home/home.component';
 
 import { authGuard } from './guards/auth.guard';
-
+// auth guard for protected route
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
