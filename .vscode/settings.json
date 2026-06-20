@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/db163317-1082-4601-bfc8-7d95ec8f7de6/resourceGroups/kalawatiputra-rg/providers/Microsoft.Web/sites/quantitymeasurment",
+    "appService.deploySubpath": "QMAPP_NEW\\bin\\Release\\net10.0\\publish"
+}

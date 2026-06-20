@@ -1,4 +1,4 @@
-@QMAPP_HostAddress = http://localhost:5098
+@QMAPP_HostAddress = https://quantitymeasurment-gvgjdfewgdfpeqea.centralindia-01.azurewebsites.net
 
 GET {{QMAPP_HostAddress}}/weatherforecast/
 Accept: application/json
