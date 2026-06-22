@@ -93,32 +93,21 @@ builder.Services.AddAuthorization();
 // Build App
 // ======================================
 
-
-
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(
-        "AngularPolicy",
-        policy =>
-        {
-            policy
+    options.AddPolicy("AngularPolicy", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:4200",
+                "https://qtymeasurment.vercel.app"
+            )
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowAnyOrigin();
-        });
+            .AllowAnyMethod();
+    });
 });
 
-
-
-
 var app = builder.Build();
-
-app.UseCors("AngularPolicy");
-
-// ======================================
-// Middleware Pipeline
-// ======================================
 
 app.UseCors("AngularPolicy");
 
@@ -132,11 +121,15 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
-using (var scope = app.Services.CreateScope())
+try
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<QmDbContext>();
     db.Database.Migrate();
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Migration Error: {ex}");
 }
 
 app.Run();
