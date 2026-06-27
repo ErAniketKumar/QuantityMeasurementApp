@@ -93,15 +93,29 @@ builder.Services.AddAuthorization();
 // Build App
 // ======================================
 
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AngularPolicy", policy =>
+//     {
+//         policy
+//             .WithOrigins(
+//                 "http://localhost:4200",
+//                 "https://qtymeasurment.vercel.app"
+//             )
+//             .AllowAnyHeader()
+//             .AllowAnyMethod();
+//     });
+// });
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularPolicy", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:4200",
-                "https://qtymeasurment.vercel.app"
-            )
+            .SetIsOriginAllowed(origin => 
+                origin.StartsWith("http://localhost:") || 
+                origin.StartsWith("https://"))
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
@@ -123,11 +137,26 @@ app.MapControllers();
 
 try
 {
+    // Replace the existing migration block in Program.cs with:
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<QmDbContext>();
-    db.Database.Migrate();
-}
-catch (Exception ex)
+    var retryCount = 10;
+    while (retryCount > 0)
+    {
+        try
+        {
+            db.Database.Migrate();
+            break;
+        }
+        catch (Exception ex)
+        {
+            retryCount--;
+            if (retryCount == 0) throw;
+            Console.WriteLine($"Waiting for database... ({ex.Message})");
+            Thread.Sleep(5000);
+        }
+    }
+} catch (Exception ex)
 {
     Console.WriteLine($"Migration Error: {ex}");
 }
