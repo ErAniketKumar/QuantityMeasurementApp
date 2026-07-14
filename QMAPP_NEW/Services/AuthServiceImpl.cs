@@ -8,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace QMAPP.Services;
 
-public class AuthService
-    : IAuthService
+public class AuthService : IAuthService
 {
     private readonly IUserRepository _repo;
 
@@ -27,11 +26,11 @@ public class AuthService
     }
 
     public async Task<AuthResponseDto>
-        Register(RegisterDto dto)
+        Register(RegisterDto request)
     {
         var existing =
             await _repo.GetByEmail(
-                dto.Email);
+                request.Email);
 
         if (existing != null)
         {
@@ -42,13 +41,13 @@ public class AuthService
         var user =
             new User
             {
-                Name = dto.Name,
-                Email = dto.Email,
+                Name = request.Name,
+                Email = request.Email,
 
                 PasswordHash =
                     BCrypt.Net.BCrypt
                     .HashPassword(
-                        dto.Password),
+                        request.Password),
 
                 Role = "USER"
             };
@@ -69,11 +68,11 @@ public class AuthService
     }
 
     public async Task<AuthResponseDto>
-        Login(LoginDto dto)
+        Login(LoginDto request)
     {
         var user =
             await _repo.GetByEmail(
-                dto.Email);
+                request.Email);
 
         if (user == null)
             throw new Exception(
@@ -81,7 +80,7 @@ public class AuthService
 
         bool valid =
             BCrypt.Net.BCrypt.Verify(
-                dto.Password,
+                request.Password,
                 user.PasswordHash);
 
         if (!valid)
@@ -130,11 +129,8 @@ GoogleLogin(
             {
                 Name = payload.Name,
                 Email = payload.Email,
-                Role = "USER",
-
-                PasswordHash = ""
+                Role = "USER"
             };
-
             await _repo.Add(user);
         }
 

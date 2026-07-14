@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ToastService } from '../../../services/toast.service';
 import { initGoogleAuth } from '../../../services/google-auth.helper';
 import { environment } from '../../../../environment/environment';
 
@@ -32,6 +33,7 @@ export class RegisterComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private toastService: ToastService
   ) {}
 
   errorMessage = '';
@@ -69,16 +71,17 @@ export class RegisterComponent {
     };
 
     this.authService.register(payload).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(response);
         this.errorMessage = '';
-
+        localStorage.setItem('token', response.token);
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.log(error);
         this.errorMessage =
           error.error?.message || 'Registration failed. Please try again.';
+        this.toastService.showError(this.errorMessage);
       },
     });
   }

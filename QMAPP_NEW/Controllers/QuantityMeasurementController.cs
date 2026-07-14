@@ -35,61 +35,80 @@ public class QuantityMeasurementController : ControllerBase
             MeasurementType = request.MeasurementType
         };
 
-        var result = await _service.Compare(q1, q2);
-
-        return Ok(new
+        try
         {
-            Success = true,
-            Result = result
-        });
+            var result = await _service.Compare(q1, q2);
+
+            return Ok(new
+            {
+                Success = true,
+                Result = result
+            });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("add")]
     public async Task<IActionResult> Add(
         [FromBody] QuantityOperationRequestDto request)
     {
-        var result =
-            await _service.Add(
-                request.Quantity1,
-                request.Quantity2);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Add(request.Quantity1, request.Quantity2);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("sub")]
     public async Task<IActionResult> Sub(
         [FromBody] QuantityOperationRequestDto request)
     {
-        var result =
-            await _service.Sub(
-                request.Quantity1,
-                request.Quantity2);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Sub(request.Quantity1, request.Quantity2);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("div")]
     public async Task<IActionResult> Div(
         [FromBody] QuantityOperationRequestDto request)
     {
-        var result =
-            await _service.Div(
-                request.Quantity1,
-                request.Quantity2);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Div(request.Quantity1, request.Quantity2);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("convert")]
     public async Task<IActionResult> Convert(
         [FromBody] ConvertRequestDto request)
     {
-        var result =
-            await _service.Convert(
-                request.Quantity,
-                request.TargetUnit);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Convert(request.Quantity, request.TargetUnit);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpGet("history")]
@@ -102,7 +121,7 @@ public class QuantityMeasurementController : ControllerBase
     }
 
     [HttpDelete("history")]
-    [Authorize]
+    [Authorize(Roles = "ADMIN")]
     public async Task<IActionResult> DeleteHistory()
     {
         await _service.DeleteHistory();

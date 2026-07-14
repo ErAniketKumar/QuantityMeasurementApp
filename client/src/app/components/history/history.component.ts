@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuantityService } from '../../services/quantity.service';
 import { ToastService } from '../../services/toast.service';
+import { AuthService } from '../../services/auth.service';
 import { NgForOf, NgIf, DatePipe } from '@angular/common';
 
 @Component({
@@ -13,13 +14,16 @@ import { NgForOf, NgIf, DatePipe } from '@angular/common';
 export class HistoryComponent implements OnInit {
   historyRecords: any[] = [];
   loading: boolean = false;
+  isAdmin: boolean = false;
 
   constructor(
     private quantityService: QuantityService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
     this.fetchHistory();
   }
 

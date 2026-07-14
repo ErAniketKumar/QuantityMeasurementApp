@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ToastService } from '../../../services/toast.service';
 import { environment } from '../../../../environment/environment';
 import { initGoogleAuth } from '../../../services/google-auth.helper';
 
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private toastService: ToastService
   ) {}
 
   errorMessage = '';
@@ -53,8 +55,9 @@ export class LoginComponent implements OnInit {
       },
       error: (error) => {
         console.log(error);
-        this.errorMessage = this.errorMessage =
+        this.errorMessage =
           error.error?.message || 'Invalid email or password';
+        this.toastService.showError(this.errorMessage);
       },
     });
   }

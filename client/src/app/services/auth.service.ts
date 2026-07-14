@@ -4,7 +4,6 @@ import { environment } from '../../environment/environment';
 import {
   AuthResponse,
   LoginRequest,
-  LoginWithGoogle,
   RegisterRequest,
 } from '../models/auth.model';
 import { Observable } from 'rxjs';
@@ -34,5 +33,23 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  getRole(): string {
+    const token = localStorage.getItem('token');
+    if (!token) return '';
+    try {
+      // Decode JWT payload
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      // Note: role claim can be 'role', 'Role', or schemas...role
+      const role = payload.role || payload.Role || payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || '';
+      return role;
+    } catch {
+      return '';
+    }
+  }
+
+  isAdmin(): boolean {
+    return this.getRole().toUpperCase() === 'ADMIN';
   }
 }

@@ -20,7 +20,7 @@ builder.Services.AddDbContext<QmDbContext>(
     options =>
         options.UseSqlServer(
             builder.Configuration.GetConnectionString(
-                "DefaultConnection")));
+                "LocalDbConnection")));
 
 // ======================================
 // Controllers
@@ -113,8 +113,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AngularPolicy", policy =>
     {
         policy
-            .SetIsOriginAllowed(origin => 
-                origin.StartsWith("http://localhost:") || 
+            .SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost:") ||
                 origin.StartsWith("https://"))
             .AllowAnyHeader()
             .AllowAnyMethod();
@@ -156,7 +156,8 @@ try
             Thread.Sleep(5000);
         }
     }
-} catch (Exception ex)
+}
+catch (Exception ex)
 {
     Console.WriteLine($"Migration Error: {ex}");
 }
