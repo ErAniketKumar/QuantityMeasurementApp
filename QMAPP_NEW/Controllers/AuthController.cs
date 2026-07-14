@@ -18,36 +18,45 @@ public class AuthController
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult>
-        Register(
-        RegisterDto dto)
+    public async Task<IActionResult> Register(RegisterDto dto)
     {
-        var result =
-            await _service.Register(dto);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Register(dto);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult>
-        Login(
-        LoginDto dto)
+    public async Task<IActionResult> Login(LoginDto dto)
     {
-        var result =
-            await _service.Login(dto);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.Login(dto);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 
 
     [HttpPost("google")]
-    public async Task<IActionResult>
-GoogleLogin([FromBody]
-    GoogleLoginDto dto)
+    public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDto dto)
     {
-        var result =
-            await _service.GoogleLogin(dto);
-
-        return Ok(result);
+        try
+        {
+            var result = await _service.GoogleLogin(dto);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 }

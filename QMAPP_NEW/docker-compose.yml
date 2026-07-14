@@ -1,0 +1,17 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - Jwt__Key=${JWT_KEY}
+      - ConnectionStrings__DefaultConnection=${AZURE_SQL_CONNECTION_STRING}
+      - Authentication__Google__ClientId=${GOOGLE_CLIENT_ID}
+      - Authentication__Google__ClientSecret=${GOOGLE_CLIENT_SECRET}
+    env_file:
+      - ./.env
+    restart: unless-stopped

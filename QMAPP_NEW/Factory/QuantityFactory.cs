@@ -54,7 +54,8 @@ public class QuantityFactory : IQuantityFactory
             "FEET" => LengthUnit.FEET,
             "INCH" => LengthUnit.INCH,
             "YARDS" => LengthUnit.YARDS,
-            _ => throw new Exception()
+            "CENTIMETER" => LengthUnit.CENTIMETER,
+            _ => throw new Exception("Invalid Length Unit")
         };
     }
 
@@ -64,7 +65,7 @@ public class QuantityFactory : IQuantityFactory
         {
             "GRAM" => WeightUnit.GRAM,
             "KILOGRAM" => WeightUnit.KILOGRAM,
-            _ => throw new Exception()
+            _ => throw new Exception("Invalid Weight Unit")
         };
     }
 
@@ -74,7 +75,8 @@ public class QuantityFactory : IQuantityFactory
         {
             "LITRE" => VolumeUnit.LITRES,
             "MILLILITRE" => VolumeUnit.MILLILITRES,
-            _ => throw new Exception()
+            "GALLON" => VolumeUnit.GALLON,
+            _ => throw new Exception("Invalid Volume Unit")
         };
     }
 

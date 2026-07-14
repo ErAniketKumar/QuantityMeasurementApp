@@ -1,7 +1,7 @@
 <div class="container" style="max-width: 1000px;">
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
     <h2>Operation History</h2>
-    <button *ngIf="historyRecords.length > 0" (click)="clearHistory()" style="background-color: var(--danger-color); width: auto;">
+    <button *ngIf="historyRecords.length > 0 && isAdmin" (click)="clearHistory()" style="background-color: var(--danger-color); width: auto;">
       Clear History
     </button>
   </div>
